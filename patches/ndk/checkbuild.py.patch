@@ -1,0 +1,28 @@
+--- a/ndk/checkbuild.py	2024-09-25 11:32:13.000000000 +0800
++++ b/ndk/checkbuild.py	2024-09-25 11:37:49.338196210 +0800
+@@ -676,6 +676,7 @@
+             # Don't enable RE2 testing because it's long and not useful to us.
+             "RE2_BUILD_TESTING": "OFF",
+             "SPIRV-Headers_SOURCE_DIR": str(spirv_headers_dir),
++            "SHADERC_SKIP_TESTS": "ON"
+         }
+         return defines
+ 
+@@ -693,7 +694,7 @@
+         if self.host == Host.Linux:
+             # Our libc++.so.1 re-exports libc++abi, and it will be installed in
+             # the same directory as the executables.
+-            ldflags += ["-Wl,-rpath,\\$ORIGIN"]
++            ldflags += ["-Wl,-rpath,\\$ORIGIN", "-static-libstdc++"]
+         if self.host == Host.Windows64:
+             # TODO: The shaderc CMake files already pass these options for
+             # gcc+mingw but not for clang+mingw. See
+@@ -758,7 +759,7 @@
+ 
+ 
+ @register
+-class Make(ndk.builds.CMakeModule):
++class Make(ndk.builds.AutoconfModule):
+     name = "make"
+     install_path = Path("prebuilt/{host}")
+     notice_group = ndk.builds.NoticeGroup.TOOLCHAIN

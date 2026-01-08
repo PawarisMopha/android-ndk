@@ -1,0 +1,10 @@
+--- a/build/tools/ndk_bin_common.sh	2024-09-25 11:32:13.000000000 +0800
++++ b/build/tools/ndk_bin_common.sh	2024-09-24 12:01:04.736272881 +0800
+@@ -27,6 +27,7 @@
+ 
+ HOST_ARCH=$(uname -m)
+ case $HOST_ARCH in
++  aarch64) HOST_ARCH=aarch64;;
+   arm64) HOST_ARCH=arm64;;
+   i?86) HOST_ARCH=x86;;
+   x86_64|amd64) HOST_ARCH=x86_64;;

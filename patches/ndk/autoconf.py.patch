@@ -1,0 +1,11 @@
+--- a/ndk/autoconf.pyautoconf.py	2024-09-24 12:58:53.504000000 +0800
++++ b/ndk/autoconf.py	2024-09-25 11:27:19.786196450 +0800
+@@ -30,7 +30,7 @@
+ 
+ HOST_TRIPLE_MAP = {
+     Host.Darwin: "x86_64-apple-darwin",
+-    Host.Linux: "aarch64-unknown-linux-android",
++    Host.Linux: "x86_64-linux-gnu",
+     Host.Windows64: "x86_64-w64-mingw32",
+ }
+ 

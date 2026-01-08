@@ -1,0 +1,11 @@
+--- a/toolchain/llvm_android/paths.py	2024-09-21 18:26:34.858000000 +0800
++++ b/toolchain/llvm_android/paths.py	2024-09-22 09:45:14.634342932 +0800
+@@ -70,7 +70,7 @@
+ 
+ RISCV64_ANDROID_SYSROOT: Path = TOOLCHAIN_DIR / 'prebuilts' / 'sysroot' / 'platform' / 'riscv64-linux-android'
+ 
+-GCC_ROOT: Path = PREBUILTS_DIR / 'gcc' / hosts.build_host().os_tag
++GCC_ROOT :Path = CLANG_PREBUILT_DIR
+ GO_ROOT: Path = PREBUILTS_DIR / 'go' / hosts.build_host().os_tag
+ MINGW_ROOT: Path = PREBUILTS_DIR / 'gcc' / 'linux-x86' / 'host' / 'x86_64-w64-mingw32-4.8' / 'x86_64-w64-mingw32'
+ 

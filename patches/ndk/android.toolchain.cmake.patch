@@ -1,0 +1,11 @@
+--- a/build/cmake/android.toolchain.cmake	2024-09-25 11:32:13.000000000 +0800
++++ b/build/cmake/android.toolchain.cmake	2024-09-24 18:34:08.814219640 +0800
+@@ -272,7 +272,7 @@
+ # Exports compatible variables defined in exports.cmake.
+ set(_ANDROID_EXPORT_COMPATIBILITY_VARIABLES TRUE)
+ 
+-if(CMAKE_HOST_SYSTEM_NAME STREQUAL Linux)
++if(CMAKE_HOST_SYSTEM_NAME MATCHES Linux|Android)
+   set(ANDROID_HOST_TAG linux-x86_64)
+ elseif(CMAKE_HOST_SYSTEM_NAME STREQUAL Darwin)
+   set(ANDROID_HOST_TAG darwin-x86_64)

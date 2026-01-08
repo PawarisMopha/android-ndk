@@ -1,0 +1,37 @@
+--- a/toolchain/llvm_android/base_builders.py	2024-09-21 18:26:34.714000000 +0800
++++ b/toolchain/llvm_android/base_builders.py	2024-09-25 11:22:38.106196558 +0800
+@@ -193,7 +193,7 @@
+     @property
+     def cflags(self) -> List[str]:
+         """Additional cflags to use."""
+-        return []
++        return ['--target=aarch64-linux-android28']
+ 
+     @property
+     def cxxflags(self) -> List[str]:
+@@ -719,7 +719,15 @@
+         defines['LLVM_ENABLE_PROJECTS'] = ';'.join(sorted(self.llvm_projects))
+         defines['LLVM_ENABLE_RUNTIMES'] = ';'.join(sorted(self.llvm_runtime_projects))
+ 
+-        defines['LLVM_TARGETS_TO_BUILD'] = ';'.join(sorted(self.llvm_targets))
++        defines['LLVM_TARGETS_TO_BUILD']= 'all'
++        defines['DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD']='ARC;CSKY;M68k;VE'
++        defines['DLLVM_ENABLE_FFI']='ON'
++        defines['LLVM_ENABLE_PIC'] = 'ON'
++        defines['CMAKE_BUILD_WITH_INSTALL_RPATH'] = 'ON'
++        defines['CMAKE_POLICY_DEFAULT_CMP0116'] = 'OLD'
++        defines['LLVM_TARGET_ARCH'] = 'AArch64'
++        defines['LLVM_HOST_TRIPLE'] = 'aarch64-unknown-linux-android28'
++        
+         if self._config.target_os.is_darwin or self._config.target_os.is_linux:
+             defines['LLVM_BUILD_LLVM_DYLIB'] = 'ON'
+         elif isinstance(self._config, configs.MSVCConfig):
+@@ -785,7 +793,7 @@
+ 
+             # Add libc++abi to libc++.{a,dylib} for consistency with Linux.
+             defines['LIBCXX_ENABLE_STATIC_ABI_LIBRARY'] = 'ON'
+-
++        
+         if self._config.target_os.is_linux:
+             runtime_configs: List[configs.Config] = []
+             if self.build_cross_runtimes:

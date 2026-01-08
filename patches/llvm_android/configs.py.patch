@@ -1,0 +1,31 @@
+--- a/toolchain/llvm_android/configs.py	2024-09-21 18:26:34.722000000 +0800
++++ b/toolchain/llvm_android/configs.py	2024-09-25 11:09:11.226196866 +0800
+@@ -295,22 +295,22 @@
+     """Configuration for Linux targets."""
+ 
+     target_os: hosts.Host = hosts.Host.Linux
+-    sysroot: Optional[Path] = (paths.GCC_ROOT / 'host' / 'x86_64-linux-glibc2.17-4.8' / 'sysroot')
+-    gcc_root: Path = (paths.GCC_ROOT / 'host' / 'x86_64-linux-glibc2.17-4.8')
+-    gcc_triple: str = 'x86_64-linux'
+-    gcc_ver: str = '4.8.3'
++    sysroot: Optional[Path] = (paths.GCC_ROOT / 'sysroot')
++    gcc_root: Path = (paths.GCC_ROOT)
++    gcc_triple: str = 'aarch64-linux-android'
++    gcc_ver: str = '4.9.x'
+     is_cross_compiling: bool = False
+     is_musl: bool = False
+ 
+     @property
+     def llvm_triple(self) -> str:
+-        return 'i386-unknown-linux-gnu' if self.is_32_bit else 'x86_64-unknown-linux-gnu'
++        return 'arm-unknown-linux-androideabi' if self.is_32_bit else 'aarch64-unknown-linux-android'
+ 
+     @property
+     def cflags(self) -> List[str]:
+         cflags = super().cflags
+         if self.is_32_bit and not self.is_musl:
+-            cflags.append('-march=i686')
++            cflags.append('-march=armv7-a')
+         return cflags
+ 
+ 
